@@ -43,12 +43,12 @@ endif; ?>
         <form action="index.php" method="POST">
             <div class="form-group">
                 <label for="firstName">Firstname</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter your firstname" required value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : ''; ?>">
+                <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required value="<?php echo isset($_POST['firstName']) ? htmlspecialchars($_POST['firstName']) : ''; ?>">
             </div>
             
             <div class="form-group">
                 <label for="lastName">Lastname</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter your lastname" required value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : ''; ?>">
+                <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required value="<?php echo isset($_POST['lastName']) ? htmlspecialchars($_POST['lastName']) : ''; ?>">
             </div>
             
             <div class="form-group">
