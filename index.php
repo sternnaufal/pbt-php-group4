@@ -2,14 +2,22 @@
 require_once 'classes/UserContact.php';
 
 $user = null;
+$errorMassage = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstName = $_POST['firstName'] ?? '';
     $lastName = $_POST['lastName'] ?? '';
     $phoneNumber = $_POST['phoneNumber'] ?? '';
     $address = $_POST['address'] ?? '';
 
-    // Create a new UserContact object (OOP Requirement)
-    $user = new UserContact($firstName, $lastName, $phoneNumber, $address);
+    try {
+        // Create a new UserContact object (OOP Requirement)
+        $user = new UserContact($firstName, $lastName, $phoneNumber, $address);
+    }
+    catch (InvalidArgumentException $e) {
+        // catch error message from UserContact class
+        $errorMessage = $e->getMessage();
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -21,8 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class="container">
         <h1>Contact Form</h1>
+
+    <?php if (!empty($errorMessage)): ?>
+            <div class="error-box" style="color: #ff0019ff; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; margin-bottom: 15px; border-radius: 4px;">
+                <strong>Error!</strong> <?php echo $errorMessage; ?>
+            </div>
+        <?php
+endif; ?>
+
         <form action="index.php" method="POST">
             <div class="form-group">
                 <label for="firstName">Firstname</label>
@@ -50,7 +67,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if ($user): ?>
             <!-- Render formatted result using the UserContact object -->
             <?php echo $user->getFormattedResult(); ?>
-        <?php endif; ?>
+        <?php
+endif; ?>
     </div>
 </body>
 </html>
