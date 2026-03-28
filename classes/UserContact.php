@@ -1,0 +1,36 @@
+<?php
+
+class UserContact {
+    private string $firstName;
+    private string $lastName;
+    private string $phoneNumber;
+    private string $address;
+
+    public function __construct(string $firstName, string $lastName, string $phoneNumber, string $address) {
+        $this->firstName = htmlspecialchars(trim($firstName));
+        $this->lastName = htmlspecialchars(trim($lastName));
+        $this->phoneNumber = htmlspecialchars(trim($phoneNumber));
+        $this->address = htmlspecialchars(trim($address));
+    }
+
+    public function getFullName(): string {
+        return "{$this->firstName} {$this->lastName}";
+    }
+
+    public function getPhoneNumber(): string {
+        return $this->phoneNumber;
+    }
+
+    public function getAddress(): string {
+        return $this->address;
+    }
+
+    public function getFormattedResult(): string {
+        return "<div class='result-box'>
+                    <p>Hi, my name is <strong>{$this->getFullName()}</strong></p>
+                    <p>Phone Number : <strong>{$this->getPhoneNumber()}</strong></p>
+                    <p>Address : <strong>" . nl2br($this->getAddress()) . "</strong></p>
+                    <a href='index.php' class='reset-btn'>Reset</a>
+                </div>";
+    }
+}
