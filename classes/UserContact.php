@@ -12,15 +12,29 @@ class UserContact
         $this->firstName = htmlspecialchars(trim($firstName));
         $this->lastName = htmlspecialchars(trim($lastName));
         $this->address = htmlspecialchars(trim($address));
+        // 1. Validasi Firstname
+        if (empty($this->firstName)) {
+            throw new InvalidArgumentException("Error: First name can't be empty");
+        }
+
+        // 2. Validasi Lastname
+        if (empty($this->lastName)) {
+            throw new InvalidArgumentException("Error: Last name can't be empty");
+        }
+
+        // 3. Validasi Address
+        if (empty($this->address)) {
+            throw new InvalidArgumentException("Error: Address can't be empty");
+        }
 
 
         if (preg_match('/[a-zA-Z]/', $phoneNumber)) {
             throw new InvalidArgumentException("Error: phone number can't contain letters");
         }
-
         $onlyNumbers = preg_replace('/[^0-9]/', '', $phoneNumber);
+
         if (empty($onlyNumbers)) {
-            throw new InvalidArgumentException("Error: phone number must contain numbers only");
+            throw new InvalidArgumentException("Error: phone number can't be empty");
         }
 
         $this->phoneNumber = htmlspecialchars($onlyNumbers);
